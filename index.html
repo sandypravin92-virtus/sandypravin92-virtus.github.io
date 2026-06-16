@@ -1,0 +1,1076 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MadrasThrottle — Man. Machine. Equilibrium.</title>
+  <meta name="description" content="Chennai's passionate voice on cars and bikes. Honest reviews, latest launches, and upcoming news from the Indian market." />
+  <!-- Google AdSense -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2384884872803077"
+     crossorigin="anonymous"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --orange: #FF6400;
+      --orange-dark: #cc5000;
+      --black: #0d0d0d;
+      --dark: #1a1a1a;
+      --white: #fff;
+      --off: #f7f7f7;
+      --text: #1c1c1c;
+      --muted: #666;
+      --border: #e8e8e8;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Inter', sans-serif; background: var(--off); color: var(--text); font-size: 16px; line-height: 1.7; }
+    a { text-decoration: none; color: inherit; cursor: pointer; }
+    img { display: block; width: 100%; object-fit: cover; }
+
+    /* HEADER */
+    header { background: var(--black); }
+    .header-top { display: flex; align-items: center; justify-content: space-between; padding: 16px 28px 14px; border-bottom: 3px solid var(--orange); }
+    .logo { font-family: 'Barlow Condensed', sans-serif; font-size: 2.6rem; font-weight: 900; text-transform: uppercase; color: var(--white); line-height: 1; letter-spacing: -1px; }
+    .logo span { color: var(--orange); }
+    .tagline { font-size: 10px; color: #666; letter-spacing: .22em; text-transform: uppercase; margin-top: 5px; }
+    .tagline em { color: var(--orange); font-style: normal; }
+    .bmc-top { background: var(--orange); color: var(--white); font-size: 12px; font-weight: 600; padding: 7px 16px; border-radius: 4px; transition: background .2s; }
+    .bmc-top:hover { background: var(--orange-dark); }
+
+    /* NAV */
+    nav { background: var(--dark); display: flex; padding: 0 20px; overflow-x: auto; gap: 0; }
+    nav a { font-size: 12px; font-weight: 600; letter-spacing: .07em; text-transform: uppercase; color: #888; padding: 12px 14px; white-space: nowrap; border-bottom: 3px solid transparent; cursor: pointer; transition: color .15s, border-color .15s; }
+    nav a:hover, nav a.active { color: var(--white); border-bottom-color: var(--orange); }
+    .nav-sep { width: 1px; background: #333; margin: 10px 4px; }
+
+    /* AD */
+    .ad-strip { background: var(--white); border-bottom: 1px solid var(--border); display: flex; justify-content: center; padding: 10px 20px; }
+    .ad-box { background: #f0f0f0; border: 1.5px dashed #d0d0d0; display: flex; flex-direction: column; align-items: center; justify-content: center; color: #bbb; font-size: 11px; gap: 3px; border-radius: 4px; padding: 10px 20px; }
+    .ad-box strong { font-size: 9px; letter-spacing: .1em; text-transform: uppercase; color: #ccc; }
+    .ad-strip .ad-box { width: 100%; max-width: 728px; height: 80px; }
+    .ad-mid-wrap { display: flex; justify-content: center; margin: 32px 0; }
+    .ad-mid-wrap .ad-box { width: 100%; max-width: 728px; height: 80px; }
+
+    /* WRAP */
+    .wrap { max-width: 760px; margin: 0 auto; padding: 0 20px; }
+
+    /* SECTION VIEWS */
+    .view { display: none; }
+    .view.active { display: block; }
+
+    /* SECTION LABEL */
+    .sec-label { font-family: 'Barlow Condensed', sans-serif; font-size: .95rem; font-weight: 900; text-transform: uppercase; letter-spacing: .12em; padding: 26px 0 10px; border-bottom: 3px solid var(--orange); margin-bottom: 2px; }
+    .sec-label span { color: var(--orange); }
+
+    /* FEATURED */
+    .featured { padding: 30px 0 26px; border-bottom: 1px solid var(--border); cursor: pointer; }
+    .featured:hover .feat-title { color: var(--orange); }
+    .feat-img { width: 100%; height: 340px; border-radius: 6px; margin-bottom: 20px; object-fit: cover; }
+    .feat-img-wrap { position: relative; }
+    .feat-label { position: absolute; top: 14px; left: 14px; background: var(--orange); color: var(--white); font-size: 10px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; padding: 4px 12px; border-radius: 2px; z-index: 1; }
+    .cat-tag { display: inline-block; font-size: 10px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; padding: 3px 10px; border-radius: 2px; margin-bottom: 12px; }
+    .ct-car    { background: var(--orange); color: var(--white); }
+    .ct-bike   { background: var(--black); color: var(--orange); border: 1px solid var(--orange); }
+    .ct-up     { background: #112211; color: #5cba5c; }
+    .ct-news   { background: #111122; color: #7b9fff; }
+    .ct-guide  { background: #221111; color: #ff9999; }
+    .ct-review { background: #221100; color: var(--orange); border: 1px solid var(--orange); }
+
+    .feat-title { font-family: 'Barlow Condensed', sans-serif; font-size: 2rem; font-weight: 900; text-transform: uppercase; line-height: 1.15; margin-bottom: 12px; transition: color .15s; }
+    .feat-excerpt { font-size: 15px; color: #555; margin-bottom: 14px; }
+    .art-meta { font-size: 12px; color: #aaa; display: flex; gap: 14px; flex-wrap: wrap; }
+    .art-meta .dot { color: var(--orange); }
+
+    /* ARTICLE LIST */
+    .art-item { display: grid; grid-template-columns: 1fr 120px; gap: 16px; padding: 0; border-bottom: 1px solid var(--border); background: var(--white); margin-bottom: 2px; cursor: pointer; border-left: 3px solid transparent; transition: border-color .15s; }
+    .art-item:hover { border-left-color: var(--orange); }
+    .art-item:hover .ai-title { color: var(--orange); }
+    .art-body { padding: 18px 0 18px 16px; }
+    .ai-title { font-family: 'Barlow Condensed', sans-serif; font-size: 1.2rem; font-weight: 900; text-transform: uppercase; line-height: 1.2; margin: 6px 0 6px; transition: color .15s; }
+    .ai-excerpt { font-size: 13px; color: #666; line-height: 1.6; margin-bottom: 8px; }
+    .ai-meta { font-size: 11px; color: #aaa; }
+    .art-thumb-wrap { padding: 12px 12px 12px 0; display: flex; align-items: stretch; }
+    .art-thumb-wrap img { width: 120px; height: 100%; border-radius: 4px; object-fit: cover; flex-shrink: 0; }
+
+    /* ARTICLE DETAIL */
+    .back-btn { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 600; color: var(--orange); padding: 18px 0 14px; cursor: pointer; letter-spacing: .04em; }
+    .back-btn:hover { opacity: .8; }
+    .back-btn::before { content: '←'; font-size: 16px; }
+    .detail-img { width: 100%; height: 380px; border-radius: 6px; object-fit: cover; margin-bottom: 24px; }
+    .detail-title { font-family: 'Barlow Condensed', sans-serif; font-size: 2.2rem; font-weight: 900; text-transform: uppercase; line-height: 1.15; margin-bottom: 14px; }
+    .detail-meta { font-size: 13px; color: #aaa; margin-bottom: 22px; display: flex; gap: 14px; flex-wrap: wrap; border-bottom: 1px solid var(--border); padding-bottom: 18px; }
+    .detail-meta .dot { color: var(--orange); }
+    .detail-body { font-size: 16px; color: #2a2a2a; line-height: 1.85; }
+    .detail-body p { margin-bottom: 18px; }
+    .detail-body h3 { font-family: 'Barlow Condensed', sans-serif; font-size: 1.4rem; font-weight: 900; text-transform: uppercase; margin: 28px 0 10px; color: var(--text); }
+    .pros-cons { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 28px 0; }
+    .pros, .cons { border-radius: 6px; padding: 18px 20px; }
+    .pros { background: #0a1a0a; border-left: 4px solid #4cba5c; }
+    .cons { background: #1a0a0a; border-left: 4px solid #cc4444; }
+    .pros h4, .cons h4 { font-family: 'Barlow Condensed', sans-serif; font-size: 1rem; font-weight: 900; text-transform: uppercase; letter-spacing: .1em; margin-bottom: 12px; }
+    .pros h4 { color: #4cba5c; }
+    .cons h4 { color: #cc4444; }
+    .pros ul, .cons ul { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+    .pros li, .cons li { font-size: 14px; color: #ccc; padding-left: 16px; position: relative; }
+    .pros li::before { content: '✓'; position: absolute; left: 0; color: #4cba5c; font-weight: 700; }
+    .cons li::before { content: '✗'; position: absolute; left: 0; color: #cc4444; font-weight: 700; }
+    .spec-table { width: 100%; border-collapse: collapse; margin: 20px 0 28px; font-size: 14px; }
+    .spec-table td { padding: 10px 14px; border-bottom: 1px solid #222; }
+    .spec-table tr:nth-child(odd) td { background: #111; }
+    .spec-table tr:nth-child(even) td { background: #181818; }
+    .spec-table td:first-child { color: #888; width: 45%; }
+    .spec-table td:last-child { color: var(--white); font-weight: 500; }
+    .spec-wrap { background: var(--black); border-radius: 6px; overflow: hidden; margin: 20px 0 28px; }
+    .spec-wrap-title { font-family: 'Barlow Condensed', sans-serif; font-size: .9rem; font-weight: 900; text-transform: uppercase; letter-spacing: .1em; color: var(--orange); padding: 12px 14px 8px; }
+
+    /* NEWSLETTER */
+    .newsletter { background: var(--black); border-radius: 6px; padding: 32px 24px; margin: 40px 0 24px; text-align: center; }
+    .newsletter h3 { font-family: 'Barlow Condensed', sans-serif; font-size: 1.7rem; font-weight: 900; text-transform: uppercase; color: var(--white); margin-bottom: 6px; }
+    .newsletter h3 span { color: var(--orange); }
+    .newsletter p { font-size: 13px; color: #888; margin-bottom: 20px; }
+    .nl-row { display: flex; gap: 10px; max-width: 440px; margin: 0 auto; }
+    .nl-row input { flex: 1; border: 2px solid #333; background: #111; color: var(--white); border-radius: 4px; padding: 10px 14px; font-size: 14px; outline: none; transition: border-color .2s; }
+    .nl-row input:focus { border-color: var(--orange); }
+    .nl-row button { background: var(--orange); color: var(--white); border: none; padding: 10px 20px; border-radius: 4px; font-weight: 700; font-size: 13px; text-transform: uppercase; cursor: pointer; white-space: nowrap; transition: background .2s; }
+    .nl-row button:hover { background: var(--orange-dark); }
+
+    /* SUPPORT BAR */
+    .support-bar { border: 1.5px solid var(--border); background: var(--white); border-radius: 6px; padding: 16px 22px; display: flex; align-items: center; justify-content: space-between; gap: 18px; margin-bottom: 44px; }
+    .support-bar p { font-size: 13px; color: #666; }
+    .support-bar strong { color: var(--text); }
+    .bmc-bar { background: #FFDD00; color: #111; font-weight: 700; font-size: 13px; padding: 9px 20px; border-radius: 5px; white-space: nowrap; transition: opacity .2s; }
+    .bmc-bar:hover { opacity: .85; }
+
+    /* FOOTER */
+    footer { background: var(--black); border-top: 3px solid var(--orange); }
+    .footer-inner { max-width: 760px; margin: 0 auto; padding: 26px 20px 18px; }
+    .f-logo { font-family: 'Barlow Condensed', sans-serif; font-size: 1.5rem; font-weight: 900; text-transform: uppercase; color: var(--white); margin-bottom: 4px; }
+    .f-logo span { color: var(--orange); }
+    .f-tag { font-size: 10px; color: #444; letter-spacing: .2em; text-transform: uppercase; margin-bottom: 16px; }
+    .f-links { display: flex; flex-wrap: wrap; gap: 6px 18px; margin-bottom: 16px; }
+    .f-links a { font-size: 12px; color: #666; transition: color .15s; }
+    .f-links a:hover { color: var(--orange); }
+    .f-copy { font-size: 11px; color: #333; }
+    .f-copy span { color: var(--orange); }
+
+    /* RESPONSIVE */
+    @media (max-width:600px) {
+      .logo { font-size: 1.9rem; }
+      .header-top { padding: 12px 16px; }
+      .bmc-top { display: none; }
+      nav { padding: 0 10px; }
+      nav a { padding: 10px 10px; font-size: 11px; }
+      .feat-img { height: 210px; }
+      .feat-title { font-size: 1.55rem; }
+      .detail-img { height: 220px; }
+      .detail-title { font-size: 1.6rem; }
+      .art-item { grid-template-columns: 1fr 90px; }
+      .art-thumb-wrap img { width: 90px; }
+      .pros-cons { grid-template-columns: 1fr; }
+      .nl-row { flex-direction: column; }
+      .support-bar { flex-direction: column; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="header-top">
+    <div>
+      <div class="logo">Madras<span>Throttle</span></div>
+      <div class="tagline">Man<em>.</em> Machine<em>.</em> Equilibrium<em>.</em></div>
+    </div>
+    <a href="https://buymeacoffee.com/YOUR_BMC_USERNAME" target="_blank" rel="noopener" class="bmc-top">☕ Support Us</a>
+  </div>
+  <nav id="main-nav">
+    <a onclick="showView('home')" class="active" data-view="home">Home</a>
+    <div class="nav-sep"></div>
+    <a onclick="showView('cars')" data-view="cars">Cars</a>
+    <a onclick="showView('bikes')" data-view="bikes">Bikes</a>
+    <div class="nav-sep"></div>
+    <a onclick="showView('reviews')" data-view="reviews">Reviews</a>
+    <a onclick="showView('upcoming')" data-view="upcoming">Upcoming</a>
+    <a onclick="showView('news')" data-view="news">News</a>
+    <a onclick="showView('guide')" data-view="guide">Buying Guide</a>
+  </nav>
+</header>
+
+<!-- TOP AD -->
+<div class="ad-strip">
+  <div class="ad-box">
+    <strong>Advertisement</strong>
+    <span>Google AdSense — replace this block with your ad unit code after approval</span>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!--  ARTICLE DETAIL VIEW                           -->
+<!-- ═══════════════════════════════════════════════ -->
+<div class="view" id="view-article">
+  <div class="wrap">
+    <div class="back-btn" onclick="goBack()"> Back</div>
+    <div id="article-content"></div>
+    <div class="newsletter" style="margin-top:40px">
+      <h3>The <span>MadrasThrottle</span> Weekly</h3>
+      <p>One email. Best launches, reviews and news. Every week.</p>
+      <div class="nl-row">
+        <input type="email" placeholder="your@email.com" id="nl-art" />
+        <button onclick="subNL('nl-art',this)">Subscribe →</button>
+      </div>
+    </div>
+    <div class="support-bar">
+      <p><strong>No sponsors. No bias.</strong> Just pure passion from Chennai. If you found this useful, a coffee helps.</p>
+      <a href="https://buymeacoffee.com/YOUR_BMC_USERNAME" target="_blank" rel="noopener" class="bmc-bar">☕ Buy Me a Coffee</a>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!--  HOME                                          -->
+<!-- ═══════════════════════════════════════════════ -->
+<div class="view active" id="view-home">
+  <div class="wrap">
+
+    <div class="featured" onclick="openArticle('ebella-review')">
+      <div class="feat-img-wrap">
+        <img src="https://www.toyota.co.in/content/dam/toyota/models/urban-cruiser-ebella/overview/hero/urban-cruiser-ebella-hero.webp"
+             onerror="this.src='https://cdn.pixabay.com/photo/2020/11/26/09/14/electric-car-5778789_640.jpg';"
+             alt="Toyota Urban Cruiser Ebella" class="feat-img" />
+        <span class="feat-label">Just Launched</span>
+      </div>
+      <span class="cat-tag ct-review">Cars · First Drive</span>
+      <h2 class="feat-title">Toyota Urban Cruiser Ebella — India's First Toyota EV, Driven</h2>
+      <p class="feat-excerpt">At ₹23.60 lakh, the Ebella is Toyota's opening move in India's EV game. We drove it across Chennai and here's the honest verdict.</p>
+      <div class="art-meta"><span>June 15, 2026</span><span class="dot">·</span><span>9 min read</span><span class="dot">·</span><span>By Pravin</span></div>
+    </div>
+
+    <div class="sec-label">Latest <span>Stories</span></div>
+
+    <div class="art-item" onclick="openArticle('honda-city-facelift')">
+      <div class="art-body">
+        <span class="cat-tag ct-car">Cars · Launch</span>
+        <div class="ai-title">Honda City Facelift 2026 — Prices, Specs & What Changed</div>
+        <div class="ai-excerpt">Launched at ₹12 lakh with new dash, ADAS updates and a sharper front end. All variants inside.</div>
+        <div class="ai-meta">Jun 15 · 4 min</div>
+      </div>
+      <div class="art-thumb-wrap">
+        <img src="https://cdn.pixabay.com/photo/2017/09/12/12/05/car-2742510_640.jpg" alt="Honda City Facelift 2026" />
+      </div>
+    </div>
+
+    <div class="art-item" onclick="openArticle('ktm-390-duke-2026')">
+      <div class="art-body">
+        <span class="cat-tag ct-bike">Bikes · Launch</span>
+        <div class="ai-title">KTM 390 Duke 2026 — Full Specs, India Price & What's New</div>
+        <div class="ai-excerpt">Sharper TFT, refined traction control, WP suspension tweaks. The benchmark raises the bar at ₹3.20 lakh.</div>
+        <div class="ai-meta">Jun 14 · 3 min</div>
+      </div>
+      <div class="art-thumb-wrap">
+        <img src="https://www.ktmindia.com/-/media/images/ktm/ktm-bikes/naked-bike/ktm-390-duke-2026/banner/ktm-pdp-desktop-duke390.webp"
+             onerror="this.src='https://cdn.pixabay.com/photo/2016/04/07/06/53/bmw-1313343_640.jpg';"
+             alt="KTM 390 Duke 2026" />
+      </div>
+    </div>
+
+    <div class="art-item" onclick="openArticle('nissan-tekton')">
+      <div class="art-body">
+        <span class="cat-tag ct-up">Cars · Upcoming</span>
+        <div class="ai-title">Nissan Tekton — India Launch July 9, Expected ₹11–18 Lakh</div>
+        <div class="ai-excerpt">Nissan is back in the compact SUV fight. Everything we know before the July 9 reveal.</div>
+        <div class="ai-meta">Jun 13 · 5 min</div>
+      </div>
+      <div class="art-thumb-wrap">
+        <img src="https://cdn.pixabay.com/photo/2020/05/01/09/12/nissan-5116095_640.jpg" alt="Nissan Tekton" />
+      </div>
+    </div>
+
+    <!-- MID AD -->
+    <div class="ad-mid-wrap">
+      <div class="ad-box">
+        <strong>Advertisement</strong>
+        <span>Google AdSense — In-Article Unit</span>
+      </div>
+    </div>
+
+    <div class="art-item" onclick="openArticle('himalayan-450')">
+      <div class="art-body">
+        <span class="cat-tag ct-review">Bikes · Review</span>
+        <div class="ai-title">Royal Enfield Himalayan 450 — A Week in the Western Ghats</div>
+        <div class="ai-excerpt">Valparai, Ooty, and back. The Sherpa engine and Showa suspension tested on roads that actually matter.</div>
+        <div class="ai-meta">Jun 12 · 9 min</div>
+      </div>
+      <div class="art-thumb-wrap">
+        <img src="https://www.royalenfield.com/content/dam/royal-enfield/motorcycles/himalayan/colors/new-studio-shots/mana-black/mana-black-000.webp"
+             onerror="this.src='https://cdn.pixabay.com/photo/2019/04/22/04/23/motorcycle-4145419_640.jpg';"
+             alt="Royal Enfield Himalayan 450" />
+      </div>
+    </div>
+
+    <div class="art-item" onclick="openArticle('ev-under-20l-guide')">
+      <div class="art-body">
+        <span class="cat-tag ct-guide">Buying Guide</span>
+        <div class="ai-title">Best Electric Cars Under ₹20 Lakh in India — June 2026</div>
+        <div class="ai-excerpt">Tiago EV at ₹6.99L to Creta Electric at ₹17.99L. Where your money works hardest right now.</div>
+        <div class="ai-meta">Jun 11 · 7 min</div>
+      </div>
+      <div class="art-thumb-wrap">
+        <img src="https://www.hyundai.com/content/dam/hyundai/in/en/data/find-a-car/creta-electric/highlights/gallery/1120x600_ev2.jpg"
+             onerror="this.src='https://cdn.pixabay.com/photo/2020/11/26/09/14/electric-car-5778789_640.jpg';"
+             alt="Best EVs India 2026" />
+      </div>
+    </div>
+
+    <div class="art-item" onclick="openArticle('xev-9e-news')">
+      <div class="art-body">
+        <span class="cat-tag ct-news">News</span>
+        <div class="ai-title">Mahindra XEV 9e — June 2026 Delivery & Waitlist Update</div>
+        <div class="ai-excerpt">Deliveries rolling through June. Current status for waitlist customers and what to expect next.</div>
+        <div class="ai-meta">Jun 10 · 3 min</div>
+      </div>
+      <div class="art-thumb-wrap">
+        <img src="https://www.mahindraelectricsuv.com/on/demandware.static/-/Library-Sites-eSUVSharedLibrary/default/dw4788afba/Xev-9e/CLIENT_Page3-fold1-price-banner.png"
+             onerror="this.src='https://cdn.pixabay.com/photo/2019/08/19/08/07/car-4415210_640.jpg';"
+             alt="Mahindra XEV 9e" />
+      </div>
+    </div>
+
+    <div class="art-item" onclick="openArticle('ktm-duke-200')">
+      <div class="art-body">
+        <span class="cat-tag ct-up">Bikes · Upcoming</span>
+        <div class="ai-title">KTM Duke 200 — India Launch Expected June 19 at ₹2.20 Lakh</div>
+        <div class="ai-excerpt">Entry-point to the Duke family gets a refresh. Expected this week with updated chassis and electronics.</div>
+        <div class="ai-meta">Jun 10 · 3 min</div>
+      </div>
+      <div class="art-thumb-wrap">
+        <img src="https://www.ktmindia.com/-/media/images/ktm/ktm-bikes/naked-bike/ktm-390-duke-2026/banner/ktm-pdp-desktop-duke390.webp"
+             onerror="this.src='https://cdn.pixabay.com/photo/2016/04/07/06/53/bmw-1313343_640.jpg';"
+             alt="KTM Duke 200 2026" />
+      </div>
+    </div>
+
+    <div class="newsletter">
+      <h3>The <span>MadrasThrottle</span> Weekly</h3>
+      <p>One email. Best launches, reviews and news from Indian roads. Every week.</p>
+      <div class="nl-row">
+        <input type="email" placeholder="your@email.com" id="nl-home" />
+        <button onclick="subNL('nl-home',this)">Subscribe →</button>
+      </div>
+    </div>
+    <div class="support-bar">
+      <p><strong>No sponsors. No manufacturer bias.</strong> Just a guy from Chennai who loves machines. A coffee keeps it going.</p>
+      <a href="https://buymeacoffee.com/YOUR_BMC_USERNAME" target="_blank" rel="noopener" class="bmc-bar">☕ Buy Me a Coffee</a>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!--  CARS                                          -->
+<!-- ═══════════════════════════════════════════════ -->
+<div class="view" id="view-cars">
+  <div class="wrap">
+    <div class="sec-label" style="padding-top:28px">Cars <span>— India, June 2026</span></div>
+    <div class="art-item" onclick="openArticle('ebella-review')">
+      <div class="art-body"><span class="cat-tag ct-review">First Drive</span>
+        <div class="ai-title">Toyota Urban Cruiser Ebella — India's First Toyota EV, Driven</div>
+        <div class="ai-excerpt">₹23.60 lakh, 500km range claim. Our verdict from Chennai roads.</div>
+        <div class="ai-meta">Jun 15 · 9 min · By Pravin</div>
+      </div>
+      <div class="art-thumb-wrap">
+        <img src="https://www.toyota.co.in/content/dam/toyota/models/urban-cruiser-ebella/overview/hero/urban-cruiser-ebella-hero.webp"
+             onerror="this.src='https://cdn.pixabay.com/photo/2020/11/26/09/14/electric-car-5778789_640.jpg';"
+             alt="Toyota Ebella" />
+      </div>
+    </div>
+    <div class="art-item" onclick="openArticle('honda-city-facelift')">
+      <div class="art-body"><span class="cat-tag ct-car">Launch</span>
+        <div class="ai-title">Honda City Facelift 2026 — All Prices & Specs</div>
+        <div class="ai-excerpt">Starts ₹12 lakh. New dash, sharper look, updated ADAS.</div>
+        <div class="ai-meta">Jun 15 · 4 min</div>
+      </div>
+      <div class="art-thumb-wrap">
+        <img src="https://cdn.pixabay.com/photo/2017/09/12/12/05/car-2742510_640.jpg" alt="Honda City 2026" />
+      </div>
+    </div>
+    <div class="art-item" onclick="openArticle('nissan-tekton')">
+      <div class="art-body"><span class="cat-tag ct-up">Upcoming</span>
+        <div class="ai-title">Nissan Tekton — Everything We Know Before July 9</div>
+        <div class="ai-excerpt">Expected ₹11–18 lakh. Nissan's comeback in the compact SUV segment.</div>
+        <div class="ai-meta">Jun 13 · 5 min</div>
+      </div>
+      <div class="art-thumb-wrap">
+        <img src="https://cdn.pixabay.com/photo/2020/05/01/09/12/nissan-5116095_640.jpg" alt="Nissan Tekton" />
+      </div>
+    </div>
+    <div class="art-item" onclick="openArticle('ev-under-20l-guide')">
+      <div class="art-body"><span class="cat-tag ct-guide">Buying Guide</span>
+        <div class="ai-title">Best EVs Under ₹20 Lakh — June 2026 Edition</div>
+        <div class="ai-excerpt">Tiago EV to Creta Electric — every option ranked with real-world data.</div>
+        <div class="ai-meta">Jun 11 · 7 min</div>
+      </div>
+      <div class="art-thumb-wrap">
+        <img src="https://www.hyundai.com/content/dam/hyundai/in/en/data/find-a-car/creta-electric/highlights/gallery/1120x600_ev2.jpg"
+             onerror="this.src='https://cdn.pixabay.com/photo/2020/11/26/09/14/electric-car-5778789_640.jpg';"
+             alt="EVs India 2026" />
+      </div>
+    </div>
+    <div class="art-item" onclick="openArticle('xev-9e-news')">
+      <div class="art-body"><span class="cat-tag ct-news">News</span>
+        <div class="ai-title">Mahindra XEV 9e — June 2026 Delivery Update</div>
+        <div class="ai-excerpt">Current waitlist situation and what buyers should know now.</div>
+        <div class="ai-meta">Jun 10 · 3 min</div>
+      </div>
+      <div class="art-thumb-wrap">
+        <img src="https://www.mahindraelectricsuv.com/on/demandware.static/-/Library-Sites-eSUVSharedLibrary/default/dw4788afba/Xev-9e/CLIENT_Page3-fold1-price-banner.png"
+             onerror="this.src='https://cdn.pixabay.com/photo/2019/08/19/08/07/car-4415210_640.jpg';"
+             alt="Mahindra XEV 9e" />
+      </div>
+    </div>
+    <div class="newsletter" style="margin-top:36px">
+      <h3>The <span>MadrasThrottle</span> Weekly</h3>
+      <p>Every car launch, every review. One email a week.</p>
+      <div class="nl-row">
+        <input type="email" placeholder="your@email.com" id="nl-cars" />
+        <button onclick="subNL('nl-cars',this)">Subscribe →</button>
+      </div>
+    </div>
+    <div class="support-bar">
+      <p><strong>No sponsors. No bias.</strong> Just honest reviews from Chennai.</p>
+      <a href="https://buymeacoffee.com/YOUR_BMC_USERNAME" target="_blank" rel="noopener" class="bmc-bar">☕ Support Us</a>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!--  BIKES                                         -->
+<!-- ═══════════════════════════════════════════════ -->
+<div class="view" id="view-bikes">
+  <div class="wrap">
+    <div class="sec-label" style="padding-top:28px">Bikes <span>— 150cc & Above, June 2026</span></div>
+    <div class="art-item" onclick="openArticle('himalayan-450')">
+      <div class="art-body"><span class="cat-tag ct-review">Review</span>
+        <div class="ai-title">Royal Enfield Himalayan 450 — Western Ghats Run</div>
+        <div class="ai-excerpt">Valparai and Ooty on the Himalayan 450. Tested when it actually matters.</div>
+        <div class="ai-meta">Jun 12 · 9 min · By Pravin</div>
+      </div>
+      <div class="art-thumb-wrap">
+        <img src="https://www.royalenfield.com/content/dam/royal-enfield/motorcycles/himalayan/colors/new-studio-shots/mana-black/mana-black-000.webp"
+             onerror="this.src='https://cdn.pixabay.com/photo/2019/04/22/04/23/motorcycle-4145419_640.jpg';"
+             alt="Royal Enfield Himalayan 450" />
+      </div>
+    </div>
+    <div class="art-item" onclick="openArticle('ktm-390-duke-2026')">
+      <div class="art-body"><span class="cat-tag ct-bike">Launch</span>
+        <div class="ai-title">KTM 390 Duke 2026 — Full Specs & India Price</div>
+        <div class="ai-excerpt">New TFT, refined TC, WP suspension tweaks. Still the benchmark at ₹3.20 lakh.</div>
+        <div class="ai-meta">Jun 14 · 3 min</div>
+      </div>
+      <div class="art-thumb-wrap">
+        <img src="https://www.ktmindia.com/-/media/images/ktm/ktm-bikes/naked-bike/ktm-390-duke-2026/banner/ktm-pdp-desktop-duke390.webp"
+             onerror="this.src='https://cdn.pixabay.com/photo/2016/04/07/06/53/bmw-1313343_640.jpg';"
+             alt="KTM 390 Duke 2026" />
+      </div>
+    </div>
+    <div class="art-item" onclick="openArticle('ktm-duke-200')">
+      <div class="art-body"><span class="cat-tag ct-up">Upcoming</span>
+        <div class="ai-title">KTM Duke 200 — Expected June 19 Launch, ₹2.20 Lakh</div>
+        <div class="ai-excerpt">Entry-level Duke returns with new chassis and electronics. Launching this week.</div>
+        <div class="ai-meta">Jun 10 · 3 min</div>
+      </div>
+      <div class="art-thumb-wrap">
+        <img src="https://www.ktmindia.com/-/media/images/ktm/ktm-bikes/naked-bike/ktm-390-duke-2026/banner/ktm-pdp-desktop-duke390.webp"
+             onerror="this.src='https://cdn.pixabay.com/photo/2016/04/07/06/53/bmw-1313343_640.jpg';"
+             alt="KTM Duke 200" />
+      </div>
+    </div>
+    <div class="art-item" onclick="openArticle('pulsar-ns400z')">
+      <div class="art-body"><span class="cat-tag ct-bike">Launch</span>
+        <div class="ai-title">Bajaj Pulsar NS400Z — Specs, Price & vs KTM 390</div>
+        <div class="ai-excerpt">400cc naked at ₹2.33 lakh. Does it actually challenge the Duke?</div>
+        <div class="ai-meta">Jun 9 · 4 min</div>
+      </div>
+      <div class="art-thumb-wrap">
+        <img src="https://cdn.bajajauto.com/-/media/assets/bajajauto/bikes/web-header-navigator-images/pulsar-ns400z.webp"
+             onerror="this.src='https://cdn.pixabay.com/photo/2017/07/11/09/29/motorcycle-2493720_640.jpg';"
+             alt="Bajaj Pulsar NS400Z" />
+      </div>
+    </div>
+    <div class="newsletter" style="margin-top:36px">
+      <h3>The <span>MadrasThrottle</span> Weekly</h3>
+      <p>Every bike launch and review. One email a week.</p>
+      <div class="nl-row">
+        <input type="email" placeholder="your@email.com" id="nl-bikes" />
+        <button onclick="subNL('nl-bikes',this)">Subscribe →</button>
+      </div>
+    </div>
+    <div class="support-bar">
+      <p><strong>No sponsors. No bias.</strong> Pure passion from Chennai.</p>
+      <a href="https://buymeacoffee.com/YOUR_BMC_USERNAME" target="_blank" rel="noopener" class="bmc-bar">☕ Support Us</a>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!--  REVIEWS                                       -->
+<!-- ═══════════════════════════════════════════════ -->
+<div class="view" id="view-reviews">
+  <div class="wrap">
+    <div class="sec-label" style="padding-top:28px">Reviews <span>— Honest. Unsponsored.</span></div>
+    <div class="art-item" onclick="openArticle('ebella-review')">
+      <div class="art-body"><span class="cat-tag ct-review">Cars · First Drive</span>
+        <div class="ai-title">Toyota Urban Cruiser Ebella — India's First Toyota EV, Driven</div>
+        <div class="ai-excerpt">₹23.60 lakh, 500km range claim. We drove it in Chennai. Here's what we actually think.</div>
+        <div class="ai-meta">Jun 15 · 9 min · By Pravin</div>
+      </div>
+      <div class="art-thumb-wrap">
+        <img src="https://www.toyota.co.in/content/dam/toyota/models/urban-cruiser-ebella/overview/hero/urban-cruiser-ebella-hero.webp"
+             onerror="this.src='https://cdn.pixabay.com/photo/2020/11/26/09/14/electric-car-5778789_640.jpg';"
+             alt="Toyota Ebella" />
+      </div>
+    </div>
+    <div class="art-item" onclick="openArticle('himalayan-450')">
+      <div class="art-body"><span class="cat-tag ct-review">Bikes · Review</span>
+        <div class="ai-title">Royal Enfield Himalayan 450 — Western Ghats Run</div>
+        <div class="ai-excerpt">Valparai and Ooty on the Himalayan 450. What it felt like when it actually mattered.</div>
+        <div class="ai-meta">Jun 12 · 9 min · By Pravin</div>
+      </div>
+      <div class="art-thumb-wrap">
+        <img src="https://www.royalenfield.com/content/dam/royal-enfield/motorcycles/himalayan/colors/new-studio-shots/mana-black/mana-black-000.webp"
+             onerror="this.src='https://cdn.pixabay.com/photo/2019/04/22/04/23/motorcycle-4145419_640.jpg';"
+             alt="Himalayan 450" />
+      </div>
+    </div>
+    <div class="support-bar" style="margin-top:36px">
+      <p><strong>Want your car reviewed?</strong> Get in touch — if it's available for a test drive in Chennai, we'll cover it.</p>
+      <a href="mailto:madrasthrottle@gmail.com" class="bmc-bar" style="background:var(--orange);color:#fff">✉ Contact Us</a>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!--  UPCOMING                                      -->
+<!-- ═══════════════════════════════════════════════ -->
+<div class="view" id="view-upcoming">
+  <div class="wrap">
+    <div class="sec-label" style="padding-top:28px">Upcoming <span>— What's Coming to India</span></div>
+    <div class="art-item" onclick="openArticle('nissan-tekton')">
+      <div class="art-body"><span class="cat-tag ct-up">Cars</span>
+        <div class="ai-title">Nissan Tekton — Launch July 9, Expected ₹11–18 Lakh</div>
+        <div class="ai-excerpt">Nissan's re-entry into the compact SUV battle. Everything before the July 9 reveal.</div>
+        <div class="ai-meta">Jun 13 · 5 min</div>
+      </div>
+      <div class="art-thumb-wrap">
+        <img src="https://cdn.pixabay.com/photo/2020/05/01/09/12/nissan-5116095_640.jpg" alt="Nissan Tekton" />
+      </div>
+    </div>
+    <div class="art-item" onclick="openArticle('ktm-duke-200')">
+      <div class="art-body"><span class="cat-tag ct-up">Bikes</span>
+        <div class="ai-title">KTM Duke 200 — Expected June 19, ₹2.20 Lakh</div>
+        <div class="ai-excerpt">Entry-level Duke returns this week. Specs and what's changed.</div>
+        <div class="ai-meta">Jun 10 · 3 min</div>
+      </div>
+      <div class="art-thumb-wrap">
+        <img src="https://www.ktmindia.com/-/media/images/ktm/ktm-bikes/naked-bike/ktm-390-duke-2026/banner/ktm-pdp-desktop-duke390.webp"
+             onerror="this.src='https://cdn.pixabay.com/photo/2016/04/07/06/53/bmw-1313343_640.jpg';"
+             alt="KTM Duke 200" />
+      </div>
+    </div>
+    <div class="art-item" onclick="openArticle('tata-sierra-ev')">
+      <div class="art-body"><span class="cat-tag ct-up">Cars · EV</span>
+        <div class="ai-title">Tata Sierra EV — June 2026 Launch Expected, 500km+ Range</div>
+        <div class="ai-excerpt">The iconic name returns as an EV. RWD and AWD options — what we know.</div>
+        <div class="ai-meta">Jun 8 · 4 min</div>
+      </div>
+      <div class="art-thumb-wrap">
+        <img src="https://cdn.pixabay.com/photo/2020/11/26/09/14/electric-car-5778789_640.jpg" alt="Tata Sierra EV" />
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!--  NEWS                                          -->
+<!-- ═══════════════════════════════════════════════ -->
+<div class="view" id="view-news">
+  <div class="wrap">
+    <div class="sec-label" style="padding-top:28px">News <span>— Indian Auto, June 2026</span></div>
+    <div class="art-item" onclick="openArticle('honda-city-facelift')">
+      <div class="art-body"><span class="cat-tag ct-news">News</span>
+        <div class="ai-title">Honda City Facelift Launched at ₹12 Lakh</div>
+        <div class="ai-excerpt">All prices, variants, and what changed. The City is here and it's sharper than ever.</div>
+        <div class="ai-meta">Jun 15 · 4 min</div>
+      </div>
+      <div class="art-thumb-wrap">
+        <img src="https://cdn.pixabay.com/photo/2017/09/12/12/05/car-2742510_640.jpg" alt="Honda City" />
+      </div>
+    </div>
+    <div class="art-item" onclick="openArticle('xev-9e-news')">
+      <div class="art-body"><span class="cat-tag ct-news">News</span>
+        <div class="ai-title">Mahindra XEV 9e — June 2026 Delivery & Waitlist Update</div>
+        <div class="ai-excerpt">Current status for waitlist customers and what to expect next.</div>
+        <div class="ai-meta">Jun 10 · 3 min</div>
+      </div>
+      <div class="art-thumb-wrap">
+        <img src="https://www.mahindraelectricsuv.com/on/demandware.static/-/Library-Sites-eSUVSharedLibrary/default/dw4788afba/Xev-9e/CLIENT_Page3-fold1-price-banner.png"
+             onerror="this.src='https://cdn.pixabay.com/photo/2019/08/19/08/07/car-4415210_640.jpg';"
+             alt="Mahindra XEV 9e" />
+      </div>
+    </div>
+    <div class="art-item" onclick="openArticle('ktm-390-duke-2026')">
+      <div class="art-body"><span class="cat-tag ct-news">News</span>
+        <div class="ai-title">KTM 390 Duke 2026 India Launch — Price Announced</div>
+        <div class="ai-excerpt">The 2026 Duke is officially here at ₹3.20 lakh. Here's what you're getting.</div>
+        <div class="ai-meta">Jun 14 · 3 min</div>
+      </div>
+      <div class="art-thumb-wrap">
+        <img src="https://www.ktmindia.com/-/media/images/ktm/ktm-bikes/naked-bike/ktm-390-duke-2026/banner/ktm-pdp-desktop-duke390.webp"
+             onerror="this.src='https://cdn.pixabay.com/photo/2016/04/07/06/53/bmw-1313343_640.jpg';"
+             alt="KTM 390 Duke 2026" />
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!--  BUYING GUIDE                                  -->
+<!-- ═══════════════════════════════════════════════ -->
+<div class="view" id="view-guide">
+  <div class="wrap">
+    <div class="sec-label" style="padding-top:28px">Buying Guide <span>— Make the Right Call</span></div>
+    <div class="art-item" onclick="openArticle('ev-under-20l-guide')">
+      <div class="art-body"><span class="cat-tag ct-guide">EVs</span>
+        <div class="ai-title">Best Electric Cars Under ₹20 Lakh — June 2026 Edition</div>
+        <div class="ai-excerpt">Tiago EV at ₹6.99L to Curvv EV. Every option in India ranked right now.</div>
+        <div class="ai-meta">Jun 11 · 7 min</div>
+      </div>
+      <div class="art-thumb-wrap">
+        <img src="https://www.hyundai.com/content/dam/hyundai/in/en/data/find-a-car/creta-electric/highlights/gallery/1120x600_ev2.jpg"
+             onerror="this.src='https://cdn.pixabay.com/photo/2020/11/26/09/14/electric-car-5778789_640.jpg';"
+             alt="EVs India" />
+      </div>
+    </div>
+    <div class="art-item" onclick="openArticle('compact-suv-guide')">
+      <div class="art-body"><span class="cat-tag ct-guide">Cars</span>
+        <div class="ai-title">₹10–18 Lakh Compact SUV Guide — Which One in June 2026</div>
+        <div class="ai-excerpt">Nexon vs Venue vs Brezza vs Tekton. How they compare with June 2026 pricing.</div>
+        <div class="ai-meta">Jun 9 · 8 min</div>
+      </div>
+      <div class="art-thumb-wrap">
+        <img src="https://www.tatamotors.com/wp-content/uploads/2023/10/Nexon-Front.jpg"
+             onerror="this.src='https://cdn.pixabay.com/photo/2017/09/12/12/05/car-2742510_640.jpg';"
+             alt="Compact SUV Guide India" />
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="f-logo">Madras<span>Throttle</span></div>
+    <div class="f-tag">Man · Machine · Equilibrium</div>
+    <div class="f-links">
+      <a onclick="showView('home')">Home</a>
+      <a onclick="showView('cars')">Cars</a>
+      <a onclick="showView('bikes')">Bikes</a>
+      <a onclick="showView('reviews')">Reviews</a>
+      <a onclick="showView('upcoming')">Upcoming</a>
+      <a onclick="showView('news')">News</a>
+      <a onclick="showView('guide')">Buying Guide</a>
+      <a href="#">About</a>
+      <a href="#">Advertise</a>
+      <a href="#">Privacy Policy</a>
+      <a href="#">Contact</a>
+    </div>
+    <div class="f-copy">© 2026 MadrasThrottle. Independent. Passionate. Chennai. <span>♥</span></div>
+  </div>
+</footer>
+
+<script>
+const articles = {
+
+  'ebella-review': {
+    tag: '<span class="cat-tag ct-review">Cars · First Drive</span>',
+    title: 'Toyota Urban Cruiser Ebella — India\'s First Toyota EV, Driven',
+    img: 'https://www.toyota.co.in/content/dam/toyota/models/urban-cruiser-ebella/overview/hero/urban-cruiser-ebella-hero.webp',
+    imgFallback: 'https://cdn.pixabay.com/photo/2020/11/26/09/14/electric-car-5778789_640.jpg',
+    imgAlt: 'Toyota Urban Cruiser Ebella',
+    meta: ['June 15, 2026', '9 min read', 'By Pravin'],
+    body: `
+      <p>Toyota finally made its EV move in India — and they didn't start small. The Urban Cruiser Ebella, launched on May 29, 2026 at ₹23.60 lakh, is the first battery-electric vehicle to wear the Toyota badge in our market. Built on Maruti's platform (the Maruti version is called e Vitara), this is a joint product from the Suzuki–Toyota partnership. And honestly? It's a solid first move.</p>
+      <h3>First Impressions in Chennai Traffic</h3>
+      <p>I picked it up from the Toyota showroom on GST Road and immediately hit peak Chennai evening traffic — the ultimate stress test for any EV. The Ebella's claimed 500km ARAI range set the context, but real-world numbers in Chennai stop-and-go with AC running are always a different story.</p>
+      <p>In heavy traffic, the single-pedal regen driving mode works impressively well. You can almost drive entirely without the brake pedal once you get the feel of it. The motor delivers smooth, linear power — none of the sudden surge you get from cheaper EVs. It feels composed and settled.</p>
+      <h3>Cabin and Features</h3>
+      <p>The interior borrows heavily from Maruti's new design language — which actually works well. A large floating touchscreen, digital cluster, and clean horizontal dashboard layout give it a premium feel. The 360-degree camera system is well-implemented and genuinely useful for parking in Chennai's tight spots. ADAS features including lane assist and auto emergency braking are standard in the top trim.</p>
+      <h3>Real-World Range</h3>
+      <p>In a mix of city and highway driving over two days, we averaged around 380–400 km on a full charge. Lower than the 500km ARAI figure — but expected. In pure highway conditions at 90–100 kmph with AC, you'd realistically see 420–440 km. For ₹23.60 lakh, that's competitive against the Tata Nexon EV Max and MG ZS EV Long Range.</p>
+      <div class="spec-wrap"><div class="spec-wrap-title">Toyota Urban Cruiser Ebella — Key Specs</div>
+      <table class="spec-table">
+        <tr><td>Battery</td><td>60 kWh (top trim)</td></tr>
+        <tr><td>Motor</td><td>Single Motor, Front-Wheel Drive</td></tr>
+        <tr><td>Power</td><td>~175 bhp</td></tr>
+        <tr><td>ARAI Range</td><td>~500 km</td></tr>
+        <tr><td>DC Fast Charging</td><td>50 kW (0–80% in ~60 min)</td></tr>
+        <tr><td>Ground Clearance</td><td>200mm</td></tr>
+        <tr><td>Price</td><td>₹23.60 lakh (ex-showroom)</td></tr>
+      </table></div>
+      <div class="pros-cons">
+        <div class="pros"><h4>What Works</h4><ul>
+          <li>Smooth, composed driving — not jumpy like cheaper EVs</li>
+          <li>Real-world range of 380–400 km is genuinely usable</li>
+          <li>Premium cabin — a step up from Tata at this price</li>
+          <li>Single-pedal regen brilliant in Chennai traffic</li>
+          <li>Toyota reliability badge for peace of mind</li>
+        </ul></div>
+        <div class="cons"><h4>What Doesn't</h4><ul>
+          <li>DC charging limited to 50 kW — slower than competition</li>
+          <li>Rear headroom tight for 6-footers</li>
+          <li>No AWD option at launch</li>
+          <li>Some interior parts feel shared with Maruti</li>
+        </ul></div>
+      </div>
+      <h3>Verdict</h3>
+      <p>The Toyota Urban Cruiser Ebella is a strong debut. Competent, comfortable, reliable, with enough technology to feel modern. At ₹23.60 lakh, it's pitched squarely against the Tata Nexon EV Long Range and MG ZS EV. The Toyota badge and expected after-sales support give it a genuine edge. Recommended for buyers who want peace of mind with their first EV.</p>
+    `
+  },
+
+  'honda-city-facelift': {
+    tag: '<span class="cat-tag ct-car">Cars · Launch</span>',
+    title: 'Honda City Facelift 2026 — Prices, Specs & What Changed',
+    img: 'https://cdn.pixabay.com/photo/2017/09/12/12/05/car-2742510_640.jpg',
+    imgFallback: 'https://cdn.pixabay.com/photo/2017/09/12/12/05/car-2742510_640.jpg',
+    imgAlt: 'Honda City Facelift 2026',
+    meta: ['June 15, 2026', '4 min read'],
+    body: `
+      <p>Honda launched the City facelift on May 22, 2026 with prices starting at ₹12 lakh. The fifth-generation City gets meaningful updates to keep it fresh against the Maruti Ciaz, Hyundai Verna, and Skoda Slavia facelift.</p>
+      <h3>What Changed</h3>
+      <p>The front gets a new grille design with a thinner LED headlamp strip — cleaner than the outgoing car. Inside, the biggest change is a new 10.25-inch infotainment screen replacing the older 8-inch unit. Honda Sensing (ADAS suite) is now available across more variants.</p>
+      <h3>Prices — All Variants</h3>
+      <div class="spec-wrap"><div class="spec-wrap-title">Honda City Facelift 2026 — Ex-Showroom Prices</div>
+      <table class="spec-table">
+        <tr><td>V</td><td>₹12.00 lakh</td></tr>
+        <tr><td>VX</td><td>₹14.00 lakh</td></tr>
+        <tr><td>ZX</td><td>₹15.50 lakh</td></tr>
+        <tr><td>ZX (e:HEV Hybrid)</td><td>₹21.00 lakh</td></tr>
+      </table></div>
+      <h3>Engine Options</h3>
+      <div class="spec-wrap"><div class="spec-wrap-title">Powertrain Options</div>
+      <table class="spec-table">
+        <tr><td>1.5L Petrol (Manual)</td><td>121 bhp / 145 Nm</td></tr>
+        <tr><td>1.5L Petrol (CVT)</td><td>121 bhp / 145 Nm</td></tr>
+        <tr><td>e:HEV Hybrid</td><td>126 bhp (combined)</td></tr>
+        <tr><td>Petrol Mileage</td><td>17.8 kmpl (ARAI)</td></tr>
+        <tr><td>Hybrid Mileage</td><td>26.5 kmpl (ARAI)</td></tr>
+      </table></div>
+      <h3>Should You Buy It?</h3>
+      <p>The City remains one of the most refined sedans in India. The new infotainment and ADAS additions make it more competitive. For ₹12–16 lakh, it's a strong choice — particularly if you prioritise driving dynamics and cabin quality. The hybrid makes sense only if you clock more than 1,500 km per month.</p>
+    `
+  },
+
+  'nissan-tekton': {
+    tag: '<span class="cat-tag ct-up">Cars · Upcoming</span>',
+    title: 'Nissan Tekton — India Launch July 9, Expected ₹11–18 Lakh',
+    img: 'https://cdn.pixabay.com/photo/2020/05/01/09/12/nissan-5116095_640.jpg',
+    imgFallback: 'https://cdn.pixabay.com/photo/2020/05/01/09/12/nissan-5116095_640.jpg',
+    imgAlt: 'Nissan Tekton India 2026',
+    meta: ['June 13, 2026', '5 min read'],
+    body: `
+      <p>Nissan has confirmed the India launch of the Tekton compact SUV for July 9, 2026. The Tekton sits above the Magnite and targets the ₹11–18 lakh segment — the most competitive space in Indian automotive right now.</p>
+      <h3>Why This Matters</h3>
+      <p>Nissan has struggled in India since the Kicks failed. The Magnite found some traction at the entry level, but Nissan needed a proper mid-size competitor. The Tekton fills that gap — sized between the Venue and the Creta, targeting buyers who want more space but don't want to stretch to ₹20 lakh.</p>
+      <h3>Expected Specs</h3>
+      <div class="spec-wrap"><div class="spec-wrap-title">Nissan Tekton — Expected Specs</div>
+      <table class="spec-table">
+        <tr><td>Engine Options</td><td>1.0L Turbo Petrol / 1.5L Petrol</td></tr>
+        <tr><td>Expected Power</td><td>100–115 bhp</td></tr>
+        <tr><td>Transmission</td><td>6MT / CVT</td></tr>
+        <tr><td>Length</td><td>~4.3 m</td></tr>
+        <tr><td>Expected ARAI</td><td>17–19 kmpl</td></tr>
+        <tr><td>Expected Price</td><td>₹11–18 lakh (ex-showroom)</td></tr>
+        <tr><td>Launch Date</td><td>July 9, 2026</td></tr>
+      </table></div>
+      <h3>When to Book</h3>
+      <p>Pre-bookings are expected to open in the first week of July. We'll publish a full first-drive review as soon as we get behind the wheel. Watch this space.</p>
+    `
+  },
+
+  'ktm-390-duke-2026': {
+    tag: '<span class="cat-tag ct-bike">Bikes · Launch</span>',
+    title: 'KTM 390 Duke 2026 — Full Specs, India Price & What Changed',
+    img: 'https://www.ktmindia.com/-/media/images/ktm/ktm-bikes/naked-bike/ktm-390-duke-2026/banner/ktm-pdp-desktop-duke390.webp',
+    imgFallback: 'https://cdn.pixabay.com/photo/2016/04/07/06/53/bmw-1313343_640.jpg',
+    imgAlt: 'KTM 390 Duke 2026',
+    meta: ['June 14, 2026', '3 min read'],
+    body: `
+      <p>KTM has launched the 2026 390 Duke in India at ₹3.20 lakh (ex-showroom). The updates are focused and purposeful — no gratuitous changes, just refinements that matter on Indian roads.</p>
+      <h3>What's New for 2026</h3>
+      <p>The new 5-inch TFT cluster has improved anti-glare coating and higher brightness in sunlight — the outgoing unit was genuinely hard to read on Chennai afternoons. The screen now supports Android Auto and Apple CarPlay via Bluetooth. The traction control system gets two new riding modes optimised for wet roads. WP APEX suspension sees revised damping rates: slightly softer initial compression for better pothole absorption.</p>
+      <div class="spec-wrap"><div class="spec-wrap-title">KTM 390 Duke 2026 — Full Specs</div>
+      <table class="spec-table">
+        <tr><td>Engine</td><td>399cc Single Cylinder, Liquid Cooled</td></tr>
+        <tr><td>Power</td><td>44 bhp @ 9,000 rpm</td></tr>
+        <tr><td>Torque</td><td>39 Nm @ 7,000 rpm</td></tr>
+        <tr><td>Gearbox</td><td>6-Speed with Quickshifter+ (optional)</td></tr>
+        <tr><td>Front Suspension</td><td>WP APEX USD Fork, 43mm</td></tr>
+        <tr><td>Rear Suspension</td><td>WP APEX Monoshock</td></tr>
+        <tr><td>ABS</td><td>Supermoto-switchable</td></tr>
+        <tr><td>Weight (Wet)</td><td>163 kg</td></tr>
+        <tr><td>India Price</td><td>₹3.20 lakh (ex-showroom)</td></tr>
+      </table></div>
+      <h3>Still the Benchmark?</h3>
+      <p>Yes. At ₹3.20 lakh, the 390 Duke remains the most complete sub-400cc naked streetfighter in India. The Bajaj NS400Z undercuts it on price but can't match the suspension quality or electronics. Until something genuinely better arrives, the 390 Duke sets the standard.</p>
+    `
+  },
+
+  'himalayan-450': {
+    tag: '<span class="cat-tag ct-review">Bikes · Review</span>',
+    title: 'Royal Enfield Himalayan 450 — A Week in the Western Ghats',
+    img: 'https://www.royalenfield.com/content/dam/royal-enfield/motorcycles/himalayan/colors/new-studio-shots/mana-black/mana-black-000.webp',
+    imgFallback: 'https://cdn.pixabay.com/photo/2019/04/22/04/23/motorcycle-4145419_640.jpg',
+    imgAlt: 'Royal Enfield Himalayan 450',
+    meta: ['June 12, 2026', '9 min read', 'By Pravin'],
+    body: `
+      <p>When Royal Enfield said the Himalayan 450 was a ground-up redesign, they weren't exaggerating. I picked one up and rode it through Valparai, up to Ooty, and back — the kind of roads that expose a bike immediately.</p>
+      <h3>The Engine — Finally Sorted</h3>
+      <p>The new 452cc Sherpa engine is a revelation compared to the old 411cc unit. It pulls cleanly from 2,500 rpm, doesn't require constant gear hunting on inclines, and has enough top-end to feel confident on highway stretches. Cruising at 90–95 kmph on the Coimbatore–Pollachi highway felt effortless. Fuel economy averaged 27 kmpl across mixed roads.</p>
+      <h3>Suspension — When It Actually Matters</h3>
+      <p>Showa long-travel suspension does its job well. On the broken forest roads near Valparai — deep ruts, loose gravel, surprise water crossings — the bike absorbed everything without drama. The geometry change is obvious: this bike actually wants to turn, unlike earlier generations.</p>
+      <h3>Tech — Tripper Nav is the Real Deal</h3>
+      <p>The Tripper navigation pod is genuinely useful on unfamiliar mountain roads where mobile signal is patchy. What annoyed me: the switchgear feels plasticky for a bike at this price, and the mirrors vibrate excessively above 80 kmph.</p>
+      <div class="pros-cons">
+        <div class="pros"><h4>What Works</h4><ul>
+          <li>Sherpa engine is a massive step up from the old 411</li>
+          <li>Showa suspension handles ghat roads with confidence</li>
+          <li>Tripper navigation genuinely useful off the beaten path</li>
+          <li>Wind protection better than most ADVs at this price</li>
+          <li>Best-looking Royal Enfield made to date</li>
+        </ul></div>
+        <div class="cons"><h4>What Doesn't</h4><ul>
+          <li>Mirror vibration above 80 kmph is irritating</li>
+          <li>Switchgear quality doesn't match the price tag</li>
+          <li>825mm seat height tough for shorter riders</li>
+          <li>Rear brake feel is wooden vs competition</li>
+        </ul></div>
+      </div>
+      <h3>Verdict</h3>
+      <p>The Himalayan 450 is the bike Royal Enfield should have made years ago. At ₹2.85 lakh, it offers legitimate adventure capability without European complexity and pricing. For Indian roads and mountain conditions, it's a strong choice. The mirror and switchgear issues are real but fixable with aftermarket parts — the engine and suspension are the hard parts, and RE got those right.</p>
+    `
+  },
+
+  'ev-under-20l-guide': {
+    tag: '<span class="cat-tag ct-guide">Buying Guide</span>',
+    title: 'Best Electric Cars Under ₹20 Lakh in India — June 2026',
+    img: 'https://www.hyundai.com/content/dam/hyundai/in/en/data/find-a-car/creta-electric/highlights/gallery/1120x600_ev2.jpg',
+    imgFallback: 'https://cdn.pixabay.com/photo/2020/11/26/09/14/electric-car-5778789_640.jpg',
+    imgAlt: 'Best EVs India Under 20 Lakh 2026',
+    meta: ['June 11, 2026', '7 min read'],
+    body: `
+      <p>India's EV market has exploded in 2026. Where there were two or three choices a year ago, buyers now have a genuine decision to make. If your budget is under ₹20 lakh, here's where every rupee works hardest.</p>
+      <h3>1. Tata Tiago EV — ₹6.99 lakh (Best Entry Point)</h3>
+      <p>The most affordable electric car from a mainstream Indian brand. The 24 kWh battery gives roughly 250–280 km real-world range in city conditions. Perfect for daily commutes under 60 km. Don't expect highway touring capability — but for city use, it's extraordinary value.</p>
+      <h3>2. MG Windsor EV — ₹13.50 lakh (Best Features-per-Rupee)</h3>
+      <p>The features king at this price. Large cabin, 38 kWh battery, around 330 km real-world range. Battery rental option lowers upfront cost. MG's after-sales reliability has improved significantly in 2025–26.</p>
+      <h3>3. Tata Nexon EV — ₹14.49 lakh (Most Rounded)</h3>
+      <p>The sweet spot of the market. Real-world range of 350–380 km, Tata's growing fast-charger network, well-sorted chassis, five-star safety rating. The safest all-round choice in the ₹14–17 lakh bracket.</p>
+      <h3>4. Hyundai Creta Electric — ₹17.99 lakh (Best Premium EV)</h3>
+      <p>Hyundai's full technology stack — V2L, superior ADAS, properly premium interior. Real-world range touches 450 km in mixed conditions. 400V architecture means faster charging than most competitors.</p>
+      <div class="spec-wrap"><div class="spec-wrap-title">Quick Comparison — June 2026</div>
+      <table class="spec-table">
+        <tr><td>Tata Tiago EV</td><td>₹6.99L · ~260km real range</td></tr>
+        <tr><td>MG Windsor EV</td><td>₹13.50L · ~330km real range</td></tr>
+        <tr><td>Tata Nexon EV</td><td>₹14.49L · ~360km real range</td></tr>
+        <tr><td>Tata Curvv EV</td><td>₹17.49L · ~380km real range</td></tr>
+        <tr><td>Hyundai Creta Electric</td><td>₹17.99L · ~450km real range</td></tr>
+      </table></div>
+      <h3>Our Pick</h3>
+      <p>For most buyers: Tata Nexon EV at ₹14.49 lakh — best balance of range, safety, features, and charging infrastructure. For pure city use: Tiago EV at ₹6.99 lakh is unbeatable value. For the best overall EV experience under ₹20 lakh: Hyundai Creta Electric at ₹17.99 lakh.</p>
+    `
+  },
+
+  'xev-9e-news': {
+    tag: '<span class="cat-tag ct-news">News</span>',
+    title: 'Mahindra XEV 9e — June 2026 Delivery Update & Waitlist Status',
+    img: 'https://www.mahindraelectricsuv.com/on/demandware.static/-/Library-Sites-eSUVSharedLibrary/default/dw4788afba/Xev-9e/CLIENT_Page3-fold1-price-banner.png',
+    imgFallback: 'https://cdn.pixabay.com/photo/2019/08/19/08/07/car-4415210_640.jpg',
+    imgAlt: 'Mahindra XEV 9e 2026',
+    meta: ['June 10, 2026', '3 min read'],
+    body: `
+      <p>Mahindra's XEV 9e deliveries are continuing through June 2026, steadily working through a waitlist that crossed 60,000 bookings. Here's the current status for buyers who are waiting.</p>
+      <h3>Current Delivery Timeline</h3>
+      <p>Customers who booked in October–December 2025 should expect delivery between June and August 2026. Bookings made in Q1 2026 are looking at Q4 2026 timelines. Mahindra has been upfront about production ramp-up challenges at the Chakan plant, but pace has improved from the initial months.</p>
+      <h3>Spec Recap</h3>
+      <div class="spec-wrap"><div class="spec-wrap-title">Mahindra XEV 9e — Key Specs</div>
+      <table class="spec-table">
+        <tr><td>Battery</td><td>79 kWh (top) / 59 kWh (base)</td></tr>
+        <tr><td>ARAI Range</td><td>656 km (79 kWh)</td></tr>
+        <tr><td>Peak Power</td><td>282 bhp (AWD)</td></tr>
+        <tr><td>DC Fast Charging</td><td>175 kW — 0 to 80% in 20 min</td></tr>
+        <tr><td>Price</td><td>₹21.90 – 30.50 lakh (ex-showroom)</td></tr>
+      </table></div>
+      <h3>Should You Still Book?</h3>
+      <p>If the XEV 9e fits your budget and timeline, yes — but book now rather than later. Waitlist times are only growing. The 175 kW DC fast-charging capability remains the headline spec — 20 minutes to 80% is genuinely game-changing for highway travel in India.</p>
+    `
+  },
+
+  'ktm-duke-200': {
+    tag: '<span class="cat-tag ct-up">Bikes · Upcoming</span>',
+    title: 'KTM Duke 200 — India Launch Expected June 19, 2026 at ₹2.20 Lakh',
+    img: 'https://www.ktmindia.com/-/media/images/ktm/ktm-bikes/naked-bike/ktm-390-duke-2026/banner/ktm-pdp-desktop-duke390.webp',
+    imgFallback: 'https://cdn.pixabay.com/photo/2016/04/07/06/53/bmw-1313343_640.jpg',
+    imgAlt: 'KTM Duke 200 India 2026',
+    meta: ['June 10, 2026', '3 min read'],
+    body: `
+      <p>KTM India is expected to launch the refreshed Duke 200 on June 19, 2026 at approximately ₹2.20 lakh (ex-showroom) — the entry point into the KTM Duke family in India.</p>
+      <h3>Why the Duke 200 Matters</h3>
+      <p>The 200 Duke was discontinued in India a couple of years ago, with KTM focusing on higher-displacement models. The reintroduction signals KTM India's intent to recapture the 150–200cc premium naked segment — currently dominated by the Yamaha MT-15 V2 and TVS Apache RTR 200.</p>
+      <div class="spec-wrap"><div class="spec-wrap-title">KTM Duke 200 — Expected Specs</div>
+      <table class="spec-table">
+        <tr><td>Engine</td><td>199cc Single Cylinder, Liquid Cooled</td></tr>
+        <tr><td>Expected Power</td><td>~26 bhp</td></tr>
+        <tr><td>Expected Torque</td><td>~19 Nm</td></tr>
+        <tr><td>Gearbox</td><td>6-Speed</td></tr>
+        <tr><td>Expected Weight</td><td>~139 kg</td></tr>
+        <tr><td>Expected Price</td><td>₹2.20 lakh (ex-showroom)</td></tr>
+        <tr><td>Launch</td><td>June 19, 2026 (expected)</td></tr>
+      </table></div>
+      <p>We'll have full details and first-ride impressions from the June 19 launch event. Watch this space.</p>
+    `
+  },
+
+  'tata-sierra-ev': {
+    tag: '<span class="cat-tag ct-up">Cars · Upcoming EV</span>',
+    title: 'Tata Sierra EV — June 2026 Launch Expected, 500km+ Range',
+    img: 'https://cdn.pixabay.com/photo/2020/11/26/09/14/electric-car-5778789_640.jpg',
+    imgFallback: 'https://cdn.pixabay.com/photo/2020/11/26/09/14/electric-car-5778789_640.jpg',
+    imgAlt: 'Tata Sierra EV',
+    meta: ['June 8, 2026', '4 min read'],
+    body: `
+      <p>The Tata Sierra is coming back — as a pure electric vehicle. One of the most iconic names in Indian automotive history, the Sierra EV is expected to launch in June–July 2026, bringing the nameplate back after nearly two decades.</p>
+      <h3>Expected Specs</h3>
+      <div class="spec-wrap"><div class="spec-wrap-title">Tata Sierra EV — Expected Specs (Unconfirmed)</div>
+      <table class="spec-table">
+        <tr><td>Battery</td><td>~70 kWh</td></tr>
+        <tr><td>Expected ARAI Range</td><td>500–550 km</td></tr>
+        <tr><td>Drive</td><td>RWD (base) / AWD (top)</td></tr>
+        <tr><td>DC Fast Charging</td><td>100+ kW</td></tr>
+        <tr><td>Body Style</td><td>3-door SUV</td></tr>
+        <tr><td>Expected Price</td><td>₹25–35 lakh</td></tr>
+        <tr><td>Expected Launch</td><td>June–July 2026</td></tr>
+      </table></div>
+      <h3>The Nostalgia Factor</h3>
+      <p>The original Sierra's distinctive 3-door layout with the rear panoramic glass roof was unlike anything else on Indian roads in the 1990s. Tata has said the EV version will honour the original's proportions — a 3-door SUV in a market dominated by 5-door crossovers would be genuinely bold. If pricing lands in the ₹25–28 lakh range, the Sierra EV will be a compelling proposition. We'll be at the launch — watch for the full story.</p>
+    `
+  },
+
+  'pulsar-ns400z': {
+    tag: '<span class="cat-tag ct-bike">Bikes · Launch</span>',
+    title: 'Bajaj Pulsar NS400Z — Specs, Price & How It Takes On the KTM 390',
+    img: 'https://cdn.bajajauto.com/-/media/assets/bajajauto/bikes/web-header-navigator-images/pulsar-ns400z.webp',
+    imgFallback: 'https://cdn.pixabay.com/photo/2017/07/11/09/29/motorcycle-2493720_640.jpg',
+    imgAlt: 'Bajaj Pulsar NS400Z',
+    meta: ['June 9, 2026', '4 min read'],
+    body: `
+      <p>Bajaj has launched the Pulsar NS400Z in India at ₹2.33 lakh (ex-showroom) — a 400cc naked streetfighter that undercuts the KTM 390 Duke by nearly ₹90,000. But can it actually compete?</p>
+      <div class="spec-wrap"><div class="spec-wrap-title">Bajaj Pulsar NS400Z — Key Specs</div>
+      <table class="spec-table">
+        <tr><td>Engine</td><td>373.3cc Single Cylinder, Liquid Cooled</td></tr>
+        <tr><td>Power</td><td>39.4 bhp @ 8,500 rpm</td></tr>
+        <tr><td>Torque</td><td>35 Nm @ 6,500 rpm</td></tr>
+        <tr><td>Gearbox</td><td>6-Speed, Slipper Clutch</td></tr>
+        <tr><td>Front Suspension</td><td>KYB USD Fork, 43mm</td></tr>
+        <tr><td>Weight (Wet)</td><td>~168 kg</td></tr>
+        <tr><td>ABS</td><td>Dual-Channel</td></tr>
+        <tr><td>Price</td><td>₹2.33 lakh (ex-showroom)</td></tr>
+      </table></div>
+      <h3>NS400Z vs KTM 390 Duke 2026</h3>
+      <p>On paper, the NS400Z comes close — 39.4 bhp vs 44 bhp, KYB suspension vs WP APEX on the KTM. In real-world riding, the Duke's suspension quality and chassis composure are noticeably better. The NS400Z is heavier at 168 kg and lacks the KTM's quickshifter as standard. However, it does get a TFT display, Bluetooth, and navigation — matching the KTM on features at a lower price.</p>
+      <h3>Verdict</h3>
+      <p>The NS400Z is a serious bike at a sharp price. For daily city commuting with the occasional highway run, the ₹87,000 saving over the 390 Duke is real money. Recommended for buyers who prioritise value. The KTM is still the pick for those who prioritise the ride.</p>
+    `
+  },
+
+  'compact-suv-guide': {
+    tag: '<span class="cat-tag ct-guide">Buying Guide</span>',
+    title: '₹10–18 Lakh Compact SUV Guide — Which One to Buy in June 2026',
+    img: 'https://www.tatamotors.com/wp-content/uploads/2023/10/Nexon-Front.jpg',
+    imgFallback: 'https://cdn.pixabay.com/photo/2017/09/12/12/05/car-2742510_640.jpg',
+    imgAlt: 'Compact SUV Buying Guide India 2026',
+    meta: ['June 9, 2026', '8 min read'],
+    body: `
+      <p>The ₹10–18 lakh compact SUV segment is the most competitive in India right now. In June 2026, there are more credible choices than ever — and the Nissan Tekton arriving in July adds another option. Here's how to navigate it.</p>
+      <div class="spec-wrap"><div class="spec-wrap-title">Compact SUVs — June 2026 Starting Prices</div>
+      <table class="spec-table">
+        <tr><td>Maruti Fronx</td><td>from ₹7.51 lakh</td></tr>
+        <tr><td>Tata Nexon</td><td>from ₹8.10 lakh</td></tr>
+        <tr><td>Hyundai Venue</td><td>from ₹7.94 lakh</td></tr>
+        <tr><td>Maruti Brezza</td><td>from ₹8.34 lakh</td></tr>
+        <tr><td>Kia Sonet</td><td>from ₹7.99 lakh</td></tr>
+        <tr><td>Honda Elevate</td><td>from ₹11.35 lakh</td></tr>
+        <tr><td>Hyundai Creta</td><td>from ₹11.40 lakh</td></tr>
+        <tr><td>Nissan Tekton (July)</td><td>from ~₹11 lakh</td></tr>
+      </table></div>
+      <h3>Best Safety: Tata Nexon</h3>
+      <p>Five-star Global NCAP rating. Standard six airbags across all variants. Best-in-class safety in this price band without debate. The facelift also improved ride quality significantly.</p>
+      <h3>Best Refinement: Hyundai Venue / Creta</h3>
+      <p>Quieter cabins, smoother gearshifts, better NVH isolation. The Creta at ₹11.40 lakh delivers a noticeably more premium experience. The Venue is the pick if you want Hyundai quality at a lower price point.</p>
+      <h3>Best Features per Rupee: Kia Sonet</h3>
+      <p>Panoramic sunroof, ventilated front seats, ADAS, large infotainment screen — all at a price that undercuts most competition. If features-per-rupee is how you decide, the Sonet wins.</p>
+      <h3>Our Recommendation by Budget</h3>
+      <p>Under ₹10 lakh: Tata Nexon base variants. ₹10–13 lakh: Hyundai Venue top variants or Nexon mid. ₹13–16 lakh: Hyundai Creta or Honda Elevate. Above ₹16 lakh: Go straight to Hyundai Creta top variant or consider EVs.</p>
+    `
+  }
+
+};
+
+/* ── NAVIGATION ── */
+let lastView = 'home';
+
+function showView(id) {
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
+  document.getElementById('view-' + id).classList.add('active');
+  const link = document.querySelector(`nav a[data-view="${id}"]`);
+  if (link) link.classList.add('active');
+  if (id !== 'article') lastView = id;
+  window.scrollTo(0, 0);
+}
+
+function openArticle(id) {
+  const a = articles[id];
+  if (!a) return;
+  const metaHtml = a.meta.map((m, i) =>
+    i < a.meta.length - 1
+      ? `<span>${m}</span><span class="dot">·</span>`
+      : `<span>${m}</span>`
+  ).join('');
+  document.getElementById('article-content').innerHTML = `
+    ${a.tag}
+    <h1 class="detail-title">${a.title}</h1>
+    <div class="detail-meta">${metaHtml}</div>
+    <img src="${a.img}"
+         onerror="this.onerror=null; this.src='${a.imgFallback || ''}'"
+         alt="${a.imgAlt || ''}"
+         class="detail-img" />
+    <div class="detail-body">${a.body}</div>
+  `;
+  showView('article');
+}
+
+function goBack() {
+  showView(lastView);
+}
+
+function subNL(inputId, btn) {
+  const val = document.getElementById(inputId).value.trim();
+  if (!val || !val.includes('@')) {
+    alert('Please enter a valid email address.');
+    return;
+  }
+  btn.textContent = '✓ Subscribed!';
+  btn.style.background = '#2a7a2a';
+  btn.disabled = true;
+}
+</script>
+</body>
+</html>
